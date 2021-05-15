@@ -1,0 +1,11 @@
+###
+POST http://localhost:8080/account
+Content-Type: application/json
+
+
+{
+ "name": "xaxa",
+ "number": 2,
+ "operation": -100,
+  "data": "takaya data"
+}
