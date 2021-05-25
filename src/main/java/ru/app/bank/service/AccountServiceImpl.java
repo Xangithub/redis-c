@@ -18,7 +18,7 @@ public class AccountServiceImpl  {
 
     @Transactional
     public Account updateAccount(Long numberOfAccount, Integer operation) {
-        Account account = accountRepository.findAccountById(numberOfAccount);
+        Account account = accountRepository.findById(numberOfAccount).orElseThrow();
         account.setBalance(account.getBalance() + operation);
         Account savedAccount = accountRepository.save(account);
         return savedAccount;
