@@ -15,35 +15,36 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class Controller {
-
     private final AccountServiceImpl accountService;
-
     private final Logger LOG = LoggerFactory.getLogger(getClass());
+
     @Cacheable(value = "account-single", keyGenerator = "keyGenerator")
     @PostMapping("/account")
     public Account create(@RequestBody RequestDto account) {
-        LOG.info("Method run " + Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
+        LOG.info("Method run " + Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
         Account acc = accountService.createAccount(account);
         return acc;
     }
 
     @Cacheable(value = "account-single")
     @GetMapping("/account/{id}")
-    public Account read(@PathVariable Long id)  {
-        LOG.info("Method run " + Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
+    public Account read(@PathVariable Long id) {
+        LOG.info("Method run " + Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
         return accountService.getAccount(id);
     }
+
     @Cacheable(value = "post-top")
     @GetMapping("/account")
     public List<Account> readAll() {
-        LOG.info("Method run " + Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
+        LOG.info("Method run " + Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
         List<Account> accountList = accountService.readAllAccount();
         return accountList;
     }
-    @CacheEvict(value = {"post-top","account-single"}, allEntries=true)
+
+    @CacheEvict(value = {"post-top", "account-single"}, allEntries = true)
     @GetMapping("/account/clean")
     public String cleanCache() {
-        LOG.info("Method run " + Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
+        LOG.info("Method run " + Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
         return "RedisCache clean";
     }
 }

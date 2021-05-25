@@ -11,21 +11,21 @@ import ru.app.bank.repository.AccountRepository
 import java.lang.reflect.Method
 import java.nio.charset.StandardCharsets
 
-class KeyGeneratorImpl implements KeyGenerator{
+class KeyGeneratorImpl implements KeyGenerator {
     final Logger LOG = LoggerFactory.getLogger(getClass());
 
     @Override
     Object generate(Object target, Method method, Object... params) {
-            StringBuffer redisKey = new StringBuffer()
-            if (params.length > 0) {
-                LOG.info(Arrays.deepToString(params));
-                redisKey.append(Arrays.deepToString(params))
-            }
-            return DigestUtils.sha512Hex(redisKey.toString().getBytes(StandardCharsets.UTF_8))
+        StringBuffer redisKey = new StringBuffer()
+        if (params.length > 0) {
+            LOG.info(Arrays.deepToString(params));
+            redisKey.append(Arrays.deepToString(params))
+        }
+        return DigestUtils.sha512Hex(redisKey.toString().getBytes(StandardCharsets.UTF_8))
     }
 }
 
-class CommandLineRunnerImpl implements CommandLineRunner{
+class CommandLineRunnerImpl implements CommandLineRunner {
     AccountRepository repository
 
     CommandLineRunnerImpl(AccountRepository repository) {
