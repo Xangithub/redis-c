@@ -8,12 +8,10 @@ import ru.app.bank.dto.RequestDto;
 import ru.app.bank.repository.AccountRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class AccountServiceImpl  {
-    public static final int BALANCE = 0;
     private final AccountRepository accountRepository;
 
     @Transactional
